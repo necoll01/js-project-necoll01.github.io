@@ -19,8 +19,8 @@
 <div class="container">
 <h2>Select a Major</h2>
 <div style='padding: 5px;'>
-<button type="button" class="btn btn-primary" onclick="getData('CIT')">CIT Majors</button>
-<button type="button" class="btn btn-primary" onclick="getData('Business')">Business Majors</button>
+<button type="button" class="btn btn-primary" onClick="getData('CIT')">CIT Majors</button>
+<button type="button" class="btn btn-primary" onClick="getData('BUS')">Business Majors</button>
 </div>
 
 <h3>We filter our dataset by major</h3>
@@ -39,7 +39,7 @@
         <tr>
             <td>{{name}}</td><td>{{major}}</td><td>{{midterm}}</td><td>{{final}}</td>
         </tr>
-        {{#each}}
+        {{/each}}
         </table>
         </script>
 
@@ -53,13 +53,13 @@ function getData(selected_major) { // called when a major button is clicked.
         var data = JSON.parse(request.responseText); // convert json to javascript array of objects
         
         major_students = data.filter(getStudents) // major_students array will contain the filtered data using the getStudents() function
-        function getStudents(major) {
+        function getStudents(student) {
             return student.major == selected_major;
         }
             if (request.status == 200 ) {
                 var templateText = document.getElementById('tableTemplate').innerHTML;
             var compiledTemplateText = Handlebars.compile(templateText);       
-            compiledHtml = compiledTemplateText({ rows: students_major })          
+            compiledHtml = compiledTemplateText({ rows: major_students })          
             document.getElementById('majorTable').innerHTML = compiledHtml; 
             }
             else {
